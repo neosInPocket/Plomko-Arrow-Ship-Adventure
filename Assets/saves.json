@@ -1,0 +1,9 @@
+{
+    "playerLevel": 6,
+    "playerShopPoints": 100,
+    "playerMaxLifes": 1,
+    "playerMaxSpeedPoints": 0,
+    "isFirstTimePlaying": true,
+    "playerMusicVolume": 1.0,
+    "playerSfxVolume": 1.0
+}
