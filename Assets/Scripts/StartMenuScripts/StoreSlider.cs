@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class StoreSlider : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private Transform healthIcon;
+    [SerializeField] private Transform speedIcon;
+    [SerializeField] private Transform distanceIcon;
 
-    // Update is called once per frame
-    void Update()
+    [Header("Parameters")] 
+    [SerializeField] private float minIconSize;
+    [SerializeField] private float minIconAlpha;
+    
+    public void SetIcons()
     {
         
     }
