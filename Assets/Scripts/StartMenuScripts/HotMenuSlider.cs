@@ -117,7 +117,7 @@ public class HotMenuSlider : MonoBehaviour
 
 	private void CalculateIconSize(Transform icon, float xPos)
 	{
-		float scale = (maxIconSize - 1) * (float)Math.Exp(-Mathf.Pow(handler.localPosition.x - xPos, 2) / cDistributionConstant) + 1;
+		float scale = (maxIconSize - 1) * Mathf.Exp(-Mathf.Pow(handler.localPosition.x - xPos, 2) / Mathf.Pow(cDistributionConstant, 2)) + 1;
 		icon.localScale = new Vector3(scale, scale, icon.localScale.z);
 	}
 }
