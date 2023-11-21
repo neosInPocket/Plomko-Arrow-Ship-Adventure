@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using Unity.VisualScripting;
 using UnityEditor.Networking.PlayerConnection;
 using UnityEngine;
 
@@ -21,6 +22,7 @@ public class PlayerSavesLoad : MonoBehaviour
 
         if (isClearData)
         {
+            Debug.LogWarning("Data is cleared on awake!");
             SaveDefaultData();
         }
     }
@@ -41,39 +43,33 @@ public class PlayerSavesLoad : MonoBehaviour
 
     private void SaveDefaultData()
     {
-        var data = new GameData();
+        gameData = new GameData();
 
-        data.isFirstTimePlaying = true;
-        data.playerMaxSpeedPoints = 0;
-        data.playerSfxVolume = 1f;
-        data.playerLevel = 1;
-        data.playerMaxLifes = 1;
-        data.playerMusicVolume = 1f;
-        data.playerShopPoints = 100;
+        gameData.isFirstTimePlaying = true;
+        
+        gameData.playerMaxSpeedPoints = 0;
+        gameData.playerMaxLifes = 1;
+        gameData.playerMaxDistancePoints = 0;
+        
+        gameData.playerSfxVolume = 1f;
+        gameData.playerMusicVolume = 1f;
 
-        SaveData(data);
+        gameData.playerLevel = 1;
+        gameData.playerShopPoints = 100;
+
+        gameData.playerMusicEnabled = true;
+        gameData.playerSFXEnabled = true;
+        
+        SaveData();
     }
 
-    public void SaveData(GameData data)
+    public void SaveData()
     {
-        string jsonData = JsonUtility.ToJson(data, true);
+        string jsonData = JsonUtility.ToJson(gameData, true);
         using (StreamWriter writer =
                new StreamWriter(Application.dataPath + Path.AltDirectorySeparatorChar + "saves.json"))
         {
             writer.Write(jsonData);
-        }
-    }
-
-    private void OnGUI()
-    {
-        if (GUILayout.Button("increase level", GUILayout.Height(400), GUILayout.Height(400)))
-        {
-            Data.playerLevel++;
-        }
-        
-        if (GUILayout.Button("save chahges", GUILayout.Height(400), GUILayout.Height(400)))
-        {
-            SaveData(gameData);
         }
     }
 }

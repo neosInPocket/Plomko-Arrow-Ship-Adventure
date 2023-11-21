@@ -1,9 +1,12 @@
 {
-    "playerLevel": 6,
-    "playerShopPoints": 100,
-    "playerMaxLifes": 1,
+    "playerLevel": 1,
+    "playerShopPoints": 0,
+    "playerMaxLifes": 2,
     "playerMaxSpeedPoints": 0,
+    "playerMaxDistancePoints": 0,
     "isFirstTimePlaying": true,
-    "playerMusicVolume": 1.0,
-    "playerSfxVolume": 1.0
+    "playerMusicVolume": 0.07139819860458374,
+    "playerSfxVolume": 0.0,
+    "playerMusicEnabled": true,
+    "playerSFXEnabled": true
 }
