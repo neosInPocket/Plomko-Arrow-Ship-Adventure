@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class PlayerSavesLoad : MonoBehaviour
 {
+    [SerializeField] private bool isCaptureScreenSize;
     [SerializeField] private bool isClearData;
     
     private GameData gameData;
@@ -14,6 +15,12 @@ public class PlayerSavesLoad : MonoBehaviour
     private void Awake()
     {
         gameData = LoadData();
+
+        if (isCaptureScreenSize)
+        {
+            gameData.screenSize = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
+            SaveData();
+        }
         
         if (gameData == null)
         {

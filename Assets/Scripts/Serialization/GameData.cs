@@ -1,6 +1,7 @@
 using System;
 using Unity.VisualScripting;
 using UnityEditor;
+using UnityEngine;
 
 [Serializable]
 public class GameData
@@ -16,4 +17,6 @@ public class GameData
     public float playerSfxVolume;
     public bool playerMusicEnabled;
     public bool playerSFXEnabled;
+
+    public Vector2 screenSize;
 }

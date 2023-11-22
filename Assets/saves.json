@@ -8,5 +8,9 @@
     "playerMusicVolume": 0.07139819860458374,
     "playerSfxVolume": 0.0,
     "playerMusicEnabled": true,
-    "playerSFXEnabled": true
+    "playerSFXEnabled": true,
+    "screenSize": {
+        "x": 2.310267925262451,
+        "y": 5.0
+    }
 }
