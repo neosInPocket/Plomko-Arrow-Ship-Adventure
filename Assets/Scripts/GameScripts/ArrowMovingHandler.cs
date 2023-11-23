@@ -7,27 +7,47 @@ using UnityEngine.UIElements;
 
 public class ArrowMovingHandler : MonoBehaviour
 {
+    [SerializeField] private PlayerSavesLoad playerSavesLoad;
     [SerializeField] private Rigidbody2D rigidBody;
-    [SerializeField] private float arrowSpeed;
     [SerializeField] private float arrowAngle;
     [SerializeField] private float arrowRotationSpeed;
     [SerializeField] private float rotationDelta;
-    [SerializeField] private CircleCollider2D circleCollider2D;
-    public Rigidbody2D Rigid => rigidBody;
-    
-    public float ArrowSpeed => arrowSpeed;
-    public float ArrowAngle => arrowAngle;
-    public float ColliderRadius => circleCollider2D.radius;
+    [SerializeField] private Transform initialPosition;
+
+    private float[] arrowSpeeds = new[] { 8f, 7f, 6f, 5f };
+    private float arrowSpeed;
+    private bool isActive;
+
+    public void Restart()
+    {
+        StopAllCoroutines();
+        rigidBody.constraints = RigidbodyConstraints2D.None;
+        transform.position = initialPosition.position;
+        var angles = transform.rotation.eulerAngles;
+        angles.z = 90;
+        
+        transform.rotation = Quaternion.Euler(angles);
+    }
 
     public void StartMove()
     {
+        isActive = true;
         SetPlayerInitialSpeed();
     }
 
+    public void StopMove()
+    {
+        isActive = false;
+        rigidBody.constraints = RigidbodyConstraints2D.FreezeAll;
+        rigidBody.velocity = Vector2.zero;
+    }
+    
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (!isActive) return;
+        
         var edge = other.GetComponent<GameEdge>();
-
+        
         if (edge != null)
         {
             rigidBody.velocity = Vector2.Reflect(rigidBody.velocity, Vector2.right);
@@ -38,6 +58,8 @@ public class ArrowMovingHandler : MonoBehaviour
 
     private void SetPlayerInitialSpeed()
     {
+        arrowSpeed = arrowSpeeds[playerSavesLoad.Data.playerMaxSpeedPoints];
+        
         var cos1 = Mathf.Cos(arrowAngle);
         var f1 = -Mathf.Sin(arrowAngle);
         var sin = Mathf.Sin(arrowAngle);
@@ -58,6 +80,8 @@ public class ArrowMovingHandler : MonoBehaviour
         
         while (angle > 0)
         {
+            if (!isActive) yield break;
+            
             var angles = transform.rotation.eulerAngles;
             crossMultiply = Vector3.Cross(transform.right, destination);
             rotationDirection = (int)(crossMultiply.z / Mathf.Abs(crossMultiply.z));

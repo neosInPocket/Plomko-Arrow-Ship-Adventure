@@ -47,7 +47,7 @@ public class StoreManager : MonoBehaviour
     public void PurchaseDistance()
     {
         playerSavesLoad.Data.playerShopPoints -= 50;
-        playerSavesLoad.Data.playerMaxDistancePoints++;
+        playerSavesLoad.Data.playerCoinSpawnChance++;
         playerSavesLoad.SaveData();
         LoadShop();
     }
@@ -56,11 +56,11 @@ public class StoreManager : MonoBehaviour
     {
         EnableButton(healthButton, 3, playerSavesLoad.Data.playerMaxLifes, 100);
         EnableButton(speedButton, 3, playerSavesLoad.Data.playerMaxSpeedPoints, 50);
-        EnableButton(distanceButton, 3, playerSavesLoad.Data.playerMaxDistancePoints, 50);
+        EnableButton(distanceButton, 3, playerSavesLoad.Data.playerCoinSpawnChance, 50);
         
         RefreshPoints(healthPoints, playerSavesLoad.Data.playerMaxLifes);
         RefreshPoints(speedPoints, playerSavesLoad.Data.playerMaxSpeedPoints);
-        RefreshPoints(distancePoints, playerSavesLoad.Data.playerMaxDistancePoints);
+        RefreshPoints(distancePoints, playerSavesLoad.Data.playerCoinSpawnChance);
 
         SetCoinsText();
     }

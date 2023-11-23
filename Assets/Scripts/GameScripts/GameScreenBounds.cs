@@ -10,6 +10,8 @@ public class GameScreenBounds : MonoBehaviour
     [SerializeField] private SpriteRenderer rightBorderRenderer;
     [SerializeField] private BoxCollider2D leftBorder;
     [SerializeField] private BoxCollider2D rightBorder;
+    
+    [SerializeField] private BoxCollider2D bottomBorder;
 
     private void Start()
     {
@@ -28,5 +30,11 @@ public class GameScreenBounds : MonoBehaviour
         
         leftBorder.size = leftBorderRenderer.size;
         rightBorder.size = rightBorderRenderer.size;
+
+        var bottomSize = bottomBorder.size;
+        bottomSize.x = screenSize.x * 2;
+        bottomBorder.size = bottomSize;
+
+        bottomBorder.transform.position = new Vector2(0, -screenSize.y - bottomBorder.size.y / 2);
     }
 }

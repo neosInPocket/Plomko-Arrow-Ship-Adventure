@@ -1,64 +1,34 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.Build.Reporting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class Barrier : MonoBehaviour
+public class Barrier : Spawnable
 {
-    [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private float rotationSpeed;
-    [SerializeField] private float inactiveAlpha; 
+    [SerializeField] private ParticleSystem particles;
     private int rotationDirection;
-    private bool isActive;
-    
-    private void Start()
-    {
-        Initialize();
-    }
-
-    public void Initialize()
-    {
-        var rnd = Random.Range(0, 2);
-        if (rnd == 0)
-        {
-            rotationDirection = 1;
-            SetActiveState(false);
-        }
-        else
-        {
-            rotationDirection = -1;
-            SetActiveState(true);
-        }
-    }
     
     private void FixedUpdate()
     {
         var angles = transform.rotation.eulerAngles;
         angles.z += rotationDirection * rotationSpeed;
+        transform.rotation = Quaternion.Euler(angles);
     }
 
-    public void ToggleActiveState()
+    protected override void CustomInitialize()
     {
-        SetActiveState(!isActive);
-    }
-
-    private void SetActiveState(bool value)
-    {
-        var color = spriteRenderer.color;
-        if (value)
+        var rnd = Random.Range(0, 2);
+        if (rnd == 1)
         {
-            color.a = 1;
-            isActive = true;
+            rotationDirection = 1;
         }
         else
         {
-            color.a = inactiveAlpha;
-            isActive = false;
+            rotationDirection = -1;
         }
+    }
 
-        spriteRenderer.color = color;
+    protected override void CustomActiveState(bool state)
+    {
+        particles.gameObject.SetActive(state);
     }
 }

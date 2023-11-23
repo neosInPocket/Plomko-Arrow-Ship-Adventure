@@ -56,7 +56,7 @@ public class PlayerSavesLoad : MonoBehaviour
         
         gameData.playerMaxSpeedPoints = 0;
         gameData.playerMaxLifes = 1;
-        gameData.playerMaxDistancePoints = 0;
+        gameData.playerCoinSpawnChance = 0;
         
         gameData.playerSfxVolume = 1f;
         gameData.playerMusicVolume = 1f;
