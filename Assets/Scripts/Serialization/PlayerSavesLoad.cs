@@ -1,7 +1,5 @@
-using System;
+
 using System.IO;
-using Unity.VisualScripting;
-using UnityEditor.Networking.PlayerConnection;
 using UnityEngine;
 
 public class PlayerSavesLoad : MonoBehaviour
@@ -15,14 +13,28 @@ public class PlayerSavesLoad : MonoBehaviour
     private void Awake()
     {
         gameData = LoadData();
-
+        
         if (isCaptureScreenSize)
         {
             gameData.screenSize = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
             SaveData();
         }
         
-        if (gameData == null)
+        string firstPlay = PlayerPrefs.GetString("firstRun", "yes");
+        bool isFirstPlay;
+        
+        if (firstPlay == "yes")
+        {
+            isFirstPlay = true;
+            PlayerPrefs.SetString("firstRun", "no");
+            PlayerPrefs.Save();
+        }
+        else
+        {
+            isFirstPlay = false;
+        }
+        
+        if (gameData == null || isFirstPlay)
         {
             SaveDefaultData();
         }

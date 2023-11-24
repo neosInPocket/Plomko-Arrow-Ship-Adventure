@@ -20,7 +20,7 @@ public class InstructionsWindow : MonoBehaviour
         TouchSimulation.Enable();
 
         nextInstruction = Instruction1;
-        instructions.text = "WELCOME TO PINKO!";
+        instructions.text = "Welcome to Plomko Arrow: Ship Adventure!";
         Touch.onFingerDown += NextInstruction;
     }
 

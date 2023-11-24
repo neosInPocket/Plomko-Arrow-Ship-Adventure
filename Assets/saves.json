@@ -1,16 +1,16 @@
 {
-    "playerLevel": 4,
-    "playerShopPoints": 44,
+    "playerLevel": 1,
+    "playerShopPoints": 100,
     "playerMaxLifes": 1,
-    "playerMaxSpeedPoints": 2,
-    "playerCoinSpawnChance": 1,
-    "isFirstTimePlaying": false,
-    "playerMusicVolume": 0.12196071445941925,
-    "playerSfxVolume": 0.4131002426147461,
+    "playerMaxSpeedPoints": 0,
+    "playerCoinSpawnChance": 0,
+    "isFirstTimePlaying": true,
+    "playerMusicVolume": 1.0,
+    "playerSfxVolume": 1.0,
     "playerMusicEnabled": true,
     "playerSFXEnabled": true,
     "screenSize": {
-        "x": 2.310267925262451,
-        "y": 5.0
+        "x": 0.0,
+        "y": 0.0
     }
 }
