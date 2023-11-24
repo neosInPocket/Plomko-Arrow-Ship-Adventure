@@ -2323,7 +2323,6 @@ MonoBehaviour:
   speedButton: {fileID: 333761054}
   distanceButton: {fileID: 100620530}
   playerCoinsAmount: {fileID: 465346473}
-  playerSavesLoad: {fileID: 1534120825}
   healthPoints:
   - {fileID: 1526674009}
   - {fileID: 1038742944}
@@ -5632,7 +5631,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   music: {fileID: 655317317}
-  saves: {fileID: 1534120825}
   musicSlider: {fileID: 1049659455}
   sfxSlider: {fileID: 410017362}
   musicCheckmark: {fileID: 363477854}
@@ -7635,7 +7633,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1534120826}
-  - component: {fileID: 1534120825}
+  - component: {fileID: 1534120827}
   m_Layer: 0
   m_Name: PlayerDataSaves
   m_TagString: Untagged
@@ -7643,20 +7641,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1534120825
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1534120824}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce79216dd094a1741949a52059931ea0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isCaptureScreenSize: 1
-  isClearData: 0
 --- !u!4 &1534120826
 Transform:
   m_ObjectHideFlags: 0
@@ -7672,6 +7656,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1534120827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1534120824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa3f96c8a5553d8459f34e6a6bf7312d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clearSaves: 0
 --- !u!1 &1538013774
 GameObject:
   m_ObjectHideFlags: 0

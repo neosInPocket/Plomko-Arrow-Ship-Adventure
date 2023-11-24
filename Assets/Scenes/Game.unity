@@ -690,7 +690,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce7fc50d81c649a4c922a2991995c300, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerSavesLoad: {fileID: 744431882}
   arrowMovement: {fileID: 376002743}
   barrierSpawner: {fileID: 1760824722}
   instructionsWindow: {fileID: 1555345339}
@@ -745,7 +744,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d2b9d9498623ef47a16ad569cd33bc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerSavesLoad: {fileID: 744431882}
   leftBorderRenderer: {fileID: 1435120872}
   rightBorderRenderer: {fileID: 329281811}
   leftBorder: {fileID: 1435120871}
@@ -1160,7 +1158,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b4fb4e59334abf44b816367de3c5511, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerSavesLoad: {fileID: 744431882}
   rigidBody: {fileID: 376002744}
   arrowAngle: 45
   arrowRotationSpeed: 15
@@ -1705,7 +1702,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trail: {fileID: 376002745}
   spriteRenderer: {fileID: 376002740}
-  playerSavesLoad: {fileID: 744431882}
   mainGameMachine: {fileID: 235055203}
   deathVFX: {fileID: 128324, guid: 4e110ae3c6c4a44438488f03e233bfe1, type: 3}
 --- !u!1 &418772723
@@ -2073,7 +2069,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   music: {fileID: 480522148}
-  playerSavesLoad: {fileID: 744431882}
 --- !u!1 &527651461
 GameObject:
   m_ObjectHideFlags: 0
@@ -2687,52 +2682,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 600e36849f2cbc14296434c46655045b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &744431881
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 744431883}
-  - component: {fileID: 744431882}
-  m_Layer: 0
-  m_Name: PlayerSaves
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &744431882
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 744431881}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce79216dd094a1741949a52059931ea0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isCaptureScreenSize: 1
-  isClearData: 0
---- !u!4 &744431883
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 744431881}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &754108594 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1953558998421218260, guid: d26844f3cc7c28042b7d0c449b9df686, type: 3}
@@ -4981,7 +4930,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   barrierPrefab: {fileID: 882284604613575475, guid: d26844f3cc7c28042b7d0c449b9df686, type: 3}
   coinPrefab: {fileID: 1340271341431400398, guid: 60e1ad41b3395bf41ba3f451e40d1425, type: 3}
-  playerSavesLoad: {fileID: 744431882}
   arrowMovement: {fileID: 376002743}
   initialBarriers:
   - {fileID: 754108595}
@@ -5574,5 +5522,4 @@ SceneRoots:
   - {fileID: 1717292785}
   - {fileID: 527651465}
   - {fileID: 235055202}
-  - {fileID: 744431883}
   - {fileID: 480522149}

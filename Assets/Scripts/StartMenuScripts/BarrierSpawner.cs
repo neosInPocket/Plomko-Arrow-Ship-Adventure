@@ -9,7 +9,6 @@ public class BarrierSpawner : MonoBehaviour
 {
     [SerializeField] private Barrier barrierPrefab;
     [SerializeField] private GoldCoin coinPrefab;
-    [SerializeField] private PlayerSavesLoad playerSavesLoad;
     [SerializeField] private ArrowMovingHandler arrowMovement;
     [SerializeField] private Barrier[] initialBarriers;
     [SerializeField] private float spawnDelta;
@@ -92,8 +91,8 @@ public class BarrierSpawner : MonoBehaviour
         spawnables = new List<Spawnable>();
         FillInitialSpawnables();
         
-        barrierSpawnChance = barrierSpawnChances[playerSavesLoad.Data.playerCoinSpawnChance];
-        screenSize = playerSavesLoad.Data.screenSize;
+        barrierSpawnChance = barrierSpawnChances[PlayerSavesLoad.playerCoinSpawnChance];
+        screenSize = PlayerSavesLoad.ScreenSize();
         lastBarrier = initialBarriers[initialBarriers.Length - 1];
         var currentSpawnDelta = arrowMovement.transform.position.y + initialSpawnDelta;
         

@@ -7,7 +7,6 @@ using UnityEngine.UIElements;
 
 public class ArrowMovingHandler : MonoBehaviour
 {
-    [SerializeField] private PlayerSavesLoad playerSavesLoad;
     [SerializeField] private Rigidbody2D rigidBody;
     [SerializeField] private float arrowAngle;
     [SerializeField] private float arrowRotationSpeed;
@@ -58,7 +57,8 @@ public class ArrowMovingHandler : MonoBehaviour
 
     private void SetPlayerInitialSpeed()
     {
-        arrowSpeed = arrowSpeeds[playerSavesLoad.Data.playerMaxSpeedPoints];
+        PlayerSavesLoad.Load();
+        arrowSpeed = arrowSpeeds[PlayerSavesLoad.playerMaxSpeedPoints];
         
         var cos1 = Mathf.Cos(arrowAngle);
         var f1 = -Mathf.Sin(arrowAngle);

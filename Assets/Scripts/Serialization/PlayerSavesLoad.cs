@@ -1,94 +1,69 @@
 
 using System.IO;
 using UnityEngine;
+using Screen = UnityEngine.Device.Screen;
 
-public class PlayerSavesLoad : MonoBehaviour
+public class PlayerSavesLoad
 {
-    [SerializeField] private bool isCaptureScreenSize;
-    [SerializeField] private bool isClearData;
+    public static int currentPlayerProgress;
+    public static int currentShopPoints;
+    public static int playerMaxLifes;
+    public static int playerMaxSpeedPoints;
+    public static int playerMusicEnabled;
+    public static int playerSFXEnabled;
+    public static int playerCoinSpawnChance;
+    public static int isFirstTimePlaying;
+    public static float playerMusicVolume;
+    public static float playerSfxVolume;
+	
     
-    private GameData gameData;
-    public GameData Data => gameData;
-
-    private void Awake()
+    public static void Save()
     {
-        gameData = LoadData();
+        PlayerPrefs.SetInt("currentShopPoints", currentShopPoints);
+        PlayerPrefs.SetInt("currentPlayerProgress", currentPlayerProgress);
+        PlayerPrefs.SetInt("playerMaxLifes", playerMaxLifes);
+        PlayerPrefs.SetInt("playerMaxSpeedPoints", playerMaxSpeedPoints);
+        PlayerPrefs.SetInt("playerCoinSpawnChance", playerCoinSpawnChance);
+        PlayerPrefs.SetInt("playerMusicEnabled", playerMusicEnabled);
+        PlayerPrefs.SetInt("playerSFXEnabled", playerSFXEnabled);
+        PlayerPrefs.SetFloat("playerMusicVolume", playerMusicVolume);
+        PlayerPrefs.SetFloat("playerSfxVolume", playerSfxVolume);
+        PlayerPrefs.SetInt("isFirstTimePlaying", isFirstTimePlaying);
         
-        if (isCaptureScreenSize)
-        {
-            gameData.screenSize = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
-            SaveData();
-        }
-        
-        string firstPlay = PlayerPrefs.GetString("firstRun", "yes");
-        bool isFirstPlay;
-        
-        if (firstPlay == "yes")
-        {
-            isFirstPlay = true;
-            PlayerPrefs.SetString("firstRun", "no");
-            PlayerPrefs.Save();
-        }
-        else
-        {
-            isFirstPlay = false;
-        }
-        
-        if (gameData == null || isFirstPlay)
-        {
-            SaveDefaultData();
-        }
-
-        if (isClearData)
-        {
-            Debug.LogWarning("Data is cleared on awake!");
-            SaveDefaultData();
-        }
+        PlayerPrefs.Save();
     }
-    
-    private GameData LoadData()
+	
+    public static void Load()
     {
-        string jsonData = string.Empty;
-        
-        using (StreamReader reader =
-               new StreamReader(Application.dataPath + Path.AltDirectorySeparatorChar + "saves.json"))
-        {
-            jsonData = reader.ReadToEnd();
-        }
-        
-        var data = JsonUtility.FromJson<GameData>(jsonData);
-        return data;
+        currentShopPoints = PlayerPrefs.GetInt("currentShopPoints", 100);
+        currentPlayerProgress = PlayerPrefs.GetInt("currentPlayerProgress", 1);
+        playerMaxLifes = PlayerPrefs.GetInt("playerMaxLifes", 1);
+        playerMaxSpeedPoints = PlayerPrefs.GetInt("playerMaxSpeedPoints", 0);
+        playerCoinSpawnChance = PlayerPrefs.GetInt("playerMaxSpeedPoints", 0);
+        playerMusicEnabled = PlayerPrefs.GetInt("playerMusicEnabled", 1);
+        playerSFXEnabled = PlayerPrefs.GetInt("playerSFXEnabled", 1);
+        playerMusicVolume = PlayerPrefs.GetFloat("playerMusicVolume", 1f);
+        playerSfxVolume = PlayerPrefs.GetFloat("playerSfxVolume", 1f);
+        isFirstTimePlaying = PlayerPrefs.GetInt("isFirstTimePlaying", 1);
     }
 
-    private void SaveDefaultData()
+    public static void ClearData()
     {
-        gameData = new GameData();
-
-        gameData.isFirstTimePlaying = true;
-        
-        gameData.playerMaxSpeedPoints = 0;
-        gameData.playerMaxLifes = 1;
-        gameData.playerCoinSpawnChance = 0;
-        
-        gameData.playerSfxVolume = 1f;
-        gameData.playerMusicVolume = 1f;
-
-        gameData.playerLevel = 1;
-        gameData.playerShopPoints = 100;
-
-        gameData.playerMusicEnabled = true;
-        gameData.playerSFXEnabled = true;
-        
-        SaveData();
+        currentPlayerProgress = 1;
+        currentShopPoints = 100;
+        playerMaxLifes = 1;
+        playerMaxSpeedPoints = 0;
+        playerCoinSpawnChance = 0;
+        playerMusicEnabled = 1;
+        playerSFXEnabled = 1;
+        playerMusicVolume = 1f;
+        playerSfxVolume = 1f;
+        isFirstTimePlaying = 1;
+        Save();
     }
 
-    public void SaveData()
+    public static Vector2 ScreenSize()
     {
-        string jsonData = JsonUtility.ToJson(gameData, true);
-        using (StreamWriter writer =
-               new StreamWriter(Application.dataPath + Path.AltDirectorySeparatorChar + "saves.json"))
-        {
-            writer.Write(jsonData);
-        }
+        return Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
     }
 }

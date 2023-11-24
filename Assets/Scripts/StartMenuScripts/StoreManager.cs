@@ -16,8 +16,6 @@ public class StoreManager : MonoBehaviour
     [Header("Main")] 
     [SerializeField] private TMP_Text playerCoinsAmount;
 
-    [SerializeField] private PlayerSavesLoad playerSavesLoad;
-
     [Header("Points")] 
     [SerializeField] private Image[] healthPoints;
     [SerializeField] private Image[] speedPoints;
@@ -25,49 +23,51 @@ public class StoreManager : MonoBehaviour
     
     private void Start()
     {
+        PlayerSavesLoad.Load();
+        
         LoadShop();
     }
 
     public void PurchaseHealth()
     {
-        playerSavesLoad.Data.playerShopPoints -= 100;
-        playerSavesLoad.Data.playerMaxLifes++;
-        playerSavesLoad.SaveData();
+        PlayerSavesLoad.currentShopPoints -= 100;
+        PlayerSavesLoad.playerMaxLifes++;
+        PlayerSavesLoad.Save();
         LoadShop();
     }
     
     public void PurchaseSpeed()
     {
-        playerSavesLoad.Data.playerShopPoints -= 50;
-        playerSavesLoad.Data.playerMaxSpeedPoints++;
-        playerSavesLoad.SaveData();
+        PlayerSavesLoad.currentShopPoints -= 50;
+        PlayerSavesLoad.playerMaxSpeedPoints++;
+        PlayerSavesLoad.Save();
         LoadShop();
     }
     
     public void PurchaseDistance()
     {
-        playerSavesLoad.Data.playerShopPoints -= 50;
-        playerSavesLoad.Data.playerCoinSpawnChance++;
-        playerSavesLoad.SaveData();
+        PlayerSavesLoad.currentShopPoints -= 50;
+        PlayerSavesLoad.playerCoinSpawnChance++;
+        PlayerSavesLoad.Save();
         LoadShop();
     }
     
     private void LoadShop()
     {
-        EnableButton(healthButton, 3, playerSavesLoad.Data.playerMaxLifes, 100);
-        EnableButton(speedButton, 3, playerSavesLoad.Data.playerMaxSpeedPoints, 50);
-        EnableButton(distanceButton, 3, playerSavesLoad.Data.playerCoinSpawnChance, 50);
+        EnableButton(healthButton, 3, PlayerSavesLoad.playerMaxLifes, 100);
+        EnableButton(speedButton, 3, PlayerSavesLoad.playerMaxSpeedPoints, 50);
+        EnableButton(distanceButton, 3, PlayerSavesLoad.playerCoinSpawnChance, 50);
         
-        RefreshPoints(healthPoints, playerSavesLoad.Data.playerMaxLifes);
-        RefreshPoints(speedPoints, playerSavesLoad.Data.playerMaxSpeedPoints);
-        RefreshPoints(distancePoints, playerSavesLoad.Data.playerCoinSpawnChance);
+        RefreshPoints(healthPoints, PlayerSavesLoad.playerMaxLifes);
+        RefreshPoints(speedPoints, PlayerSavesLoad.playerMaxSpeedPoints);
+        RefreshPoints(distancePoints, PlayerSavesLoad.playerCoinSpawnChance);
 
         SetCoinsText();
     }
 
     private void EnableButton(Button button, float maxUpgradeValue, float currentUpgradeValue, int cost)
     {
-        bool isEnabled = currentUpgradeValue < maxUpgradeValue && playerSavesLoad.Data.playerShopPoints - cost >= 0;
+        bool isEnabled = currentUpgradeValue < maxUpgradeValue && PlayerSavesLoad.currentShopPoints - cost >= 0;
         button.interactable = isEnabled;
     }
 
@@ -86,6 +86,6 @@ public class StoreManager : MonoBehaviour
 
     private void SetCoinsText()
     {
-        playerCoinsAmount.text = playerSavesLoad.Data.playerShopPoints.ToString();
+        playerCoinsAmount.text = PlayerSavesLoad.currentShopPoints.ToString();
     }
 }

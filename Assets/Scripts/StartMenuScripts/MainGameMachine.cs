@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 
 public class MainGameMachine : PlayerSubscriber
 {
-    [SerializeField] private PlayerSavesLoad playerSavesLoad;
     [SerializeField] private ArrowMovingHandler arrowMovement;
     [SerializeField] private BarrierSpawner barrierSpawner;
     [SerializeField] private InstructionsWindow instructionsWindow;
@@ -19,8 +18,8 @@ public class MainGameMachine : PlayerSubscriber
     private int maxProgression;
     private int maxCoins;
 	
-    private int MaxProgression => (int)(4 * Mathf.Log(playerSavesLoad.Data.playerLevel) + 4);
-    private int MaxCoins => (int)(20 * Mathf.Log(playerSavesLoad.Data.playerLevel) + 20);
+    private int MaxProgression => (int)(4 * Mathf.Log(PlayerSavesLoad.currentPlayerProgress) + 4);
+    private int MaxCoins => (int)(20 * Mathf.Log(PlayerSavesLoad.currentPlayerProgress) + 20);
     
     private void Start()
     {
@@ -29,21 +28,22 @@ public class MainGameMachine : PlayerSubscriber
 
     public void Restart()
     {
+        PlayerSavesLoad.Load();
         maxProgression = MaxProgression;
         maxCoins = MaxCoins;
         
-        progressScreen.Restart(playerSavesLoad.Data.playerMaxLifes, playerSavesLoad.Data.playerLevel);
+        progressScreen.Restart(PlayerSavesLoad.playerMaxLifes, PlayerSavesLoad.currentPlayerProgress);
         barrierSpawner.ClearContainer();
         arrowMovement.Restart();
         barrierSpawner.Initialize();
         player.Restart();
 
-        bool instructions = playerSavesLoad.Data.isFirstTimePlaying;
+        int instructions = PlayerSavesLoad.isFirstTimePlaying;
 
-        if (instructions)
+        if (instructions == 1)
         {
-            playerSavesLoad.Data.isFirstTimePlaying = false;
-            playerSavesLoad.SaveData();
+            PlayerSavesLoad.isFirstTimePlaying = 0;
+            PlayerSavesLoad.Save();
             
             instructionsWindow.InstructionsEnded += InstructionsEnded;
             instructionsWindow.Play();
@@ -63,7 +63,7 @@ public class MainGameMachine : PlayerSubscriber
     private void PlayDelayScreen()
     {
         delayScreen.DelayEnded += DelayEnded;
-        delayScreen.Play(playerSavesLoad.Data.playerLevel);
+        delayScreen.Play(PlayerSavesLoad.currentPlayerProgress);
     }
     
     private void DelayEnded()
@@ -80,9 +80,9 @@ public class MainGameMachine : PlayerSubscriber
             arrowMovement.StopMove();
             barrierSpawner.Disable();
             deathScreen.ShowDeathScreen(false, maxCoins);
-            playerSavesLoad.Data.playerLevel++;
-            playerSavesLoad.Data.playerShopPoints += maxCoins;
-            playerSavesLoad.SaveData();
+            PlayerSavesLoad.currentPlayerProgress++;
+            PlayerSavesLoad.currentShopPoints += maxCoins;
+            PlayerSavesLoad.Save();
         }
         
         progressScreen.UpdateSliderValue((float)allGold / (float)maxProgression);

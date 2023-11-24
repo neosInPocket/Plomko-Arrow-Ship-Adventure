@@ -10,15 +10,17 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private TrailRenderer trail;
     [SerializeField] private SpriteRenderer spriteRenderer;
-    [SerializeField] private PlayerSavesLoad playerSavesLoad;
     [SerializeField] private MainGameMachine mainGameMachine;
     [SerializeField] private GameObject deathVFX;
     private int currentLifes;
     private int currentPoints;
-
+    private bool isTakingDamage;
+    
     public void Restart()
     {
-        currentLifes = playerSavesLoad.Data.playerMaxLifes;
+        isTakingDamage = false;
+        PlayerSavesLoad.Load();
+        currentLifes = PlayerSavesLoad.playerMaxLifes;
         currentPoints = 0;
         
         spriteRenderer.enabled = true;
@@ -38,7 +40,7 @@ public class Player : MonoBehaviour
 
         if (other.TryGetComponent<Barrier>(out Barrier barrier))
         {
-            if (!barrier.IsActive) return;
+            if (!barrier.IsActive || isTakingDamage) return;
             
             currentLifes--;
             if (currentLifes <= 0)
@@ -57,6 +59,8 @@ public class Player : MonoBehaviour
 
     private IEnumerator DamageHandler()
     {
+        isTakingDamage = true;
+        
         Color color = spriteRenderer.color;
         
         for (int k = 0; k < 7; k++)
@@ -69,6 +73,8 @@ public class Player : MonoBehaviour
             spriteRenderer.color = color;
             yield return new WaitForSeconds(0.16743f);
         }
+        
+        isTakingDamage = false;
     }
     
     private IEnumerator DeathHandler()

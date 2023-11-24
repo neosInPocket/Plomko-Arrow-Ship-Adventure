@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class GameScreenBounds : MonoBehaviour
 {
-    [SerializeField] private PlayerSavesLoad playerSavesLoad;
-    
     [SerializeField] private SpriteRenderer leftBorderRenderer;
     [SerializeField] private SpriteRenderer rightBorderRenderer;
     [SerializeField] private BoxCollider2D leftBorder;
@@ -15,7 +13,7 @@ public class GameScreenBounds : MonoBehaviour
 
     private void Start()
     {
-        var screenSize = playerSavesLoad.Data.screenSize;
+        var screenSize = PlayerSavesLoad.ScreenSize();
 
         float borderHeight = 2 * screenSize.y;
 

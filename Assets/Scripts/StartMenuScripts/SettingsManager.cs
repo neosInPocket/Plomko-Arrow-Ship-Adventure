@@ -8,7 +8,6 @@ using UnityEngine.UI;
 public class SettingsManager : MonoBehaviour
 {
     [SerializeField] private AudioSource music;
-    [SerializeField] private PlayerSavesLoad saves;
     
     [SerializeField] private Slider musicSlider;
     [SerializeField] private Slider sfxSlider;
@@ -18,13 +17,35 @@ public class SettingsManager : MonoBehaviour
 
     private void Start()
     {
-        SetSliderValue(musicSlider, saves.Data.playerMusicVolume);
-        SetSliderValue(sfxSlider, saves.Data.playerSfxVolume);
+        PlayerSavesLoad.Load();
+        SetSliderValue(musicSlider, PlayerSavesLoad.playerMusicVolume);
+        SetSliderValue(sfxSlider, PlayerSavesLoad.playerSfxVolume);
 
-        music.enabled = saves.Data.playerMusicEnabled;
-        music.volume = saves.Data.playerMusicVolume;
-        musicCheckmark.enabled = saves.Data.playerMusicEnabled;
-        sfxCheckmark.enabled = saves.Data.playerSFXEnabled;
+        var musicEnabled = PlayerSavesLoad.playerMusicEnabled;
+        if (musicEnabled == 1)
+        {
+            music.enabled = true;
+            musicCheckmark.enabled = true;
+        }
+        else
+        {
+            music.enabled = false;
+            musicCheckmark.enabled = false;
+        }
+        
+        music.volume = PlayerSavesLoad.playerMusicVolume;
+        
+        var sfxEnabled = PlayerSavesLoad.playerSFXEnabled;
+        if (sfxEnabled == 1)
+        {
+            sfxCheckmark.enabled = true;
+        }
+        else
+        {
+            sfxCheckmark.enabled = false;
+        }
+        
+        
     }
 
     private void SetSliderValue(Slider slider, float value)
@@ -35,14 +56,14 @@ public class SettingsManager : MonoBehaviour
     public void ChangeMusicVolume(float volume)
     {
         music.volume = volume;
-        saves.Data.playerMusicVolume = volume;
-        saves.SaveData();
+        PlayerSavesLoad.playerMusicVolume = volume;
+        PlayerSavesLoad.Save();
     }
     
     public void ChangeSFXVolume(float volume)
     {
-        saves.Data.playerSfxVolume = volume;
-        saves.SaveData();
+        PlayerSavesLoad.playerSfxVolume = volume;
+        PlayerSavesLoad.Save();
     }
 
     public void ToggleMusicVolume()
@@ -53,15 +74,15 @@ public class SettingsManager : MonoBehaviour
         if (value)
         {
             music.enabled = true;
-            saves.Data.playerMusicEnabled = true;
+            PlayerSavesLoad.playerMusicEnabled = 1;
         }
         else
         {
             music.enabled = false;
-            saves.Data.playerMusicEnabled = false;
+            PlayerSavesLoad.playerMusicEnabled = 0;
         }
         
-        saves.SaveData();
+        PlayerSavesLoad.Save();
     }
     
     public void ToggleSFXVolume()
@@ -71,13 +92,13 @@ public class SettingsManager : MonoBehaviour
 
         if (value)
         {
-            saves.Data.playerSFXEnabled = true;
+            PlayerSavesLoad.playerSFXEnabled = 1;
         }
         else
         {
-            saves.Data.playerSFXEnabled = false;
+            PlayerSavesLoad.playerSFXEnabled = 0;
         }
         
-        saves.SaveData();
+        PlayerSavesLoad.Save();
     }
 }
